@@ -1,9 +1,0 @@
-// Cloudflare Workers deploy config for WordCounterGo
-// Static asset site — no KV, no sessions, no server-side code.
-{
-  "name": "wordcounter",
-  "compatibility_date": "2025-01-01",
-  "assets": {
-    "directory": "./dist"
-  }
-}
