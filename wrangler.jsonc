@@ -1,0 +1,7 @@
+// Cloudflare Workers / Pages config for WordCounterGo
+// Static Astro site — no KV, no sessions, no bindings needed.
+{
+  "name": "wordcounter",
+  "compatibility_date": "2025-01-01",
+  "pages_build_output_dir": "./dist"
+}
