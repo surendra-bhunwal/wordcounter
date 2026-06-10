@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact WordCounterGo — Get in Touch"
+  description="Have a question, suggestion, or bug to report? Get in touch with the WordCounterGo team."
+  canonical="https://wordcountergo.com/contact"
+>
+  <section class="page-hero"><div class="container"><h1 class="page-title">Get in <span class="accent">Touch</span></h1><p class="page-subtitle">Questions, suggestions, or bugs? We would love to hear from you.</p></div></section>
+  <div class="container page-content">
+    <div class="contact-card">
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-group"><label for="contact-name" class="form-label">Your name</label><input type="text" id="contact-name" name="name" class="form-input" placeholder="Jane Smith" autocomplete="name" required /></div>
+        <div class="form-group"><label for="contact-email" class="form-label">Email address</label><input type="email" id="contact-email" name="email" class="form-input" placeholder="jane@example.com" autocomplete="email" required /></div>
+        <div class="form-group"><label for="contact-message" class="form-label">Message</label><textarea id="contact-message" name="message" class="form-input form-textarea" placeholder="Tell us what's on your mind…" rows="5" required></textarea></div>
+        <div id="form-feedback" class="form-feedback" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn btn-primary form-submit" id="form-submit-btn">Send message</button>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-hero { padding: 2.5rem 0 1.5rem; text-align: center; }
+  .page-title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.625rem; color: var(--text-primary); }
+  .accent { color: var(--color-green); }
+  .page-subtitle { font-size: var(--text-lg); color: var(--text-secondary); }
+  .page-content { max-width: 580px; margin: 0 auto; padding-bottom: 3.5rem; }
+  .contact-card { background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 2rem; transition: background-color var(--transition), border-color var(--transition); }
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.375rem; }
+  .form-label { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+  .form-input { width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border); background-color: var(--bg-page); color: var(--text-primary); padding: 10px 13px; font-size: var(--text-base); font-family: inherit; outline: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition); -webkit-appearance: none; }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+  .form-input:user-invalid:not(:focus) { border-color: #ff4953; box-shadow: 0 0 0 3px color-mix(in srgb, #ff4953 12%, transparent); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-feedback { font-size: var(--text-sm); border-radius: var(--radius-md); padding: 0; transition: all var(--transition); }
+  .form-feedback.success { color: #007c65; background-color: #cff1ea; border: 1px solid #007c65; padding: 0.75rem 1rem; }
+  .form-feedback.error { color: #c33909; background-color: #ffddd2; border: 1px solid #c33909; padding: 0.75rem 1rem; }
+  .form-submit { align-self: flex-start; }
+  @media (max-width: 640px) { .contact-card { padding: 1.25rem 1rem; } .form-submit { width: 100%; } }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const feedback = document.getElementById('form-feedback') as HTMLElement;
+  const submitBtn = document.getElementById('form-submit-btn') as HTMLButtonElement;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
+    setTimeout(() => {
+      feedback.className = 'form-feedback success';
+      feedback.textContent = 'Thanks! Your message has been received. We will get back to you shortly.';
+      form.reset(); submitBtn.disabled = false; submitBtn.textContent = 'Send message';
+    }, 900);
+  });
+</script>

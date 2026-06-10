@@ -1,0 +1,197 @@
+---
+import '../styles/global.css';
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+const { title, description, canonical } = Astro.props;
+const siteUrl = 'https://wordcountergo.com';
+const canonicalUrl = canonical ?? siteUrl;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="WordCounterGo" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('wcg-theme');
+          if (stored === 'dark' || stored === 'light') {
+            document.documentElement.setAttribute('data-theme', stored);
+          }
+        } catch (_) {}
+      })();
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://wordcountergo.com/#website",
+            "url": "https://wordcountergo.com",
+            "name": "WordCounterGo",
+            "description": "Free online word counter — count words, characters, sentences and transform text instantly."
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://wordcountergo.com/#app",
+            "name": "WordCounterGo",
+            "url": "https://wordcountergo.com",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "All",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header id="site-header" class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo" aria-label="WordCounterGo home">
+          WordCounter<span class="logo-accent">Go</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark/light mode" title="Toggle theme">
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+          </button>
+          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+        <ul>
+          <li><a href="/" class="mobile-nav-link">Home</a></li>
+          <li><a href="/about" class="mobile-nav-link">About</a></li>
+          <li><a href="/contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-brand">WordCounter<span class="logo-accent">Go</span></p>
+        <p class="footer-copy">&copy; {new Date().getFullYear()} WordCounterGo. Free to use.</p>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--header-shadow);
+    transition: background-color var(--transition), border-color var(--transition), box-shadow var(--transition);
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 1.5rem; }
+  .logo { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1; flex-shrink: 0; }
+  .logo-accent { color: var(--color-green); }
+  .desktop-nav { display: none; }
+  @media (min-width: 768px) { .desktop-nav { display: block; } }
+  .desktop-nav ul { display: flex; align-items: center; gap: 0.5rem; }
+  .nav-link { position: relative; display: inline-flex; padding: 0.5rem 0.625rem; font-size: var(--text-base); font-weight: 500; color: var(--text-secondary); line-height: 1.8; transition: color var(--transition-fast); border-radius: var(--radius-sm); }
+  .nav-link::after { content: ''; position: absolute; bottom: 2px; left: 0.625rem; height: 1px; width: 0; background-color: var(--accent); transition: width var(--transition); }
+  .nav-link:hover { color: var(--text-primary); }
+  .nav-link:hover::after { width: calc(100% - 20px); }
+  .header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+  .theme-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--radius-md); border: 1px solid var(--border); background: transparent; color: var(--text-secondary); transition: all var(--transition-fast); cursor: pointer; }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-icon-sun { display: flex; }
+  .theme-icon-moon { display: none; }
+  [data-theme="dark"] .theme-icon-sun, .auto-dark .theme-icon-sun { display: none; }
+  [data-theme="dark"] .theme-icon-moon, .auto-dark .theme-icon-moon { display: flex; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .theme-icon-sun { display: none; }
+    :root:not([data-theme]) .theme-icon-moon { display: flex; }
+  }
+  .mobile-menu-btn { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; padding: 6px; border-radius: var(--radius-md); border: 1px solid var(--border); background: transparent; cursor: pointer; transition: all var(--transition-fast); }
+  .mobile-menu-btn:hover { border-color: var(--accent); }
+  @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+  .hamburger-bar { display: block; height: 1.5px; width: 100%; background-color: var(--text-primary); border-radius: 2px; transition: all var(--transition); }
+  .mobile-menu-btn.active .hamburger-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .mobile-menu-btn.active .hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .mobile-menu-btn.active .hamburger-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .mobile-nav { overflow: hidden; max-height: 0; transition: max-height 0.3s cubic-bezier(0, 0, 0.2, 1), border-color var(--transition); border-top: 1px solid transparent; }
+  .mobile-nav.open { max-height: 240px; border-top-color: var(--border); }
+  .mobile-nav ul { padding: 0.75rem var(--container-pad) 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
+  .mobile-nav-link { display: block; padding: 0.625rem 0.75rem; font-size: var(--text-base); font-weight: 500; color: var(--text-secondary); border-radius: var(--radius-md); transition: all var(--transition-fast); }
+  .mobile-nav-link:hover { color: var(--accent); background-color: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .site-footer { background-color: var(--bg-footer); color: var(--color-white); padding: 2.5rem var(--container-pad); margin-top: 4rem; }
+  .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; text-align: center; }
+  .footer-brand { font-size: var(--text-lg); font-weight: 700; }
+  .footer-copy { font-size: var(--text-sm); color: rgba(255,255,255,0.55); }
+  .footer-nav { display: flex; gap: 1.5rem; margin-top: 0.25rem; }
+  .footer-nav a { font-size: var(--text-sm); color: rgba(255,255,255,0.6); transition: color var(--transition-fast); }
+  .footer-nav a:hover { color: var(--color-green); }
+  #main-content { min-height: calc(100vh - 64px); }
+</style>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+  function getTheme(): string {
+    const stored = localStorage.getItem('wcg-theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function applyTheme(theme: string) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('wcg-theme', theme);
+  }
+  applyTheme(getTheme());
+  toggle?.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme') ?? getTheme();
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = menuBtn.classList.contains('active');
+    menuBtn.classList.toggle('active');
+    mobileNav?.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(!isOpen));
+    mobileNav?.setAttribute('aria-hidden', String(isOpen));
+  });
+</script>
